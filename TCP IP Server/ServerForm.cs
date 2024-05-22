@@ -40,6 +40,8 @@ namespace TCP_IP_Server
 
         private  void btnStart_Click(object sender, EventArgs e)
         {
+            btnStart.Enabled = false;
+
             txtStatus.Text += "Starting server...";
             try
             {
@@ -63,6 +65,7 @@ namespace TCP_IP_Server
             catch (Exception ex)
             {
                 txtStatus.Text += $"Failed to start server: {ex.Message}";
+                btnStart.Enabled = true;
             }
         }
 
@@ -72,6 +75,7 @@ namespace TCP_IP_Server
             {
                 server.Stop();
                 txtStatus.Text += "Server stopped.";
+                btnStart.Enabled = true;
             }
             else
             {
