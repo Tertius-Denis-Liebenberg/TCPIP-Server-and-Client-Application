@@ -106,58 +106,75 @@ namespace TCP_IP_Server
                 txtStatus.Text += "Server is not running.\n";
             }
         }
-
+        
+        // Method to retrieve the first non-link-local/non-multicast IP address of all Ethernet network interfaces
         private void GetLocalIPAddresses(TextBox textBox)
         {
+            // Loop through all network interfaces on the machine
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
+                // Check if the current network interface is of type Ethernet
                 if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                 {
+                    // Loop through all unicast IP addresses assigned to the Ethernet interface
                     foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
                     {
+                        // Check if the IP address is not link-local or multicast
                         if (!ip.Address.IsIPv6LinkLocal && !ip.Address.IsIPv6Multicast)
                         {
-                            textBox.Text = ip.Address.ToString(); // Update the TextBox with the IP address
-                            break; // Assuming you only want the first non-link-local/non-multicast IP
+                            // Update the TextBox with the IP address
+                            textBox.Text = ip.Address.ToString();
+                            // Exit the loop after finding the first suitable IP address
+                            break;
                         }
                     }
                 }
             }
         }
+
+        // Method to retrieve the first non-link-local/non-multicast IP address of the specified WiFi network interface
         private void GetWiFiIPAddress(TextBox textBox)
         {
             // Define the name of the WiFi adapter
             string wifiAdapterName = "Wi-Fi";
 
-            // Find the network interface by its name
+            // Try to find the network interface by its name
             NetworkInterface wifiNic = null;
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
+                // If the network interface name matches the WiFi adapter name
                 if (nic.Name.Equals(wifiAdapterName, StringComparison.OrdinalIgnoreCase))
                 {
+                    // Store the WiFi network interface for further processing
                     wifiNic = nic;
+                    // Exit the loop once the WiFi adapter is found
                     break;
                 }
             }
 
+            // Check if the WiFi network interface was found
             if (wifiNic != null)
             {
                 // Get the IP properties of the WiFi adapter
                 IPInterfaceProperties wifiIpProps = wifiNic.GetIPProperties();
 
-                // Iterate through the unicast addresses to find the IPv4 address
+                // Loop through all unicast IP addresses assigned to the WiFi interface
                 foreach (UnicastIPAddressInformation ip in wifiIpProps.UnicastAddresses)
                 {
+                    // Check if the IP address is not link-local or multicast
                     if (!ip.Address.IsIPv6LinkLocal && !ip.Address.IsIPv6Multicast)
                     {
-                        textBox.Text = ip.Address.ToString(); // Update the TextBox with the IP address
-                        break; // Assuming you only want the first non-link-local/non-multicast IP
+                        // Update the TextBox with the IP address
+                        textBox.Text = ip.Address.ToString();
+                        // Exit the loop after finding the first suitable IP address
+                        break;
                     }
                 }
             }
             else
             {
-                textBox.Text = "WiFi adapter not found."; // Inform the user if the WiFi adapter couldn't be found
+                // Inform the user if the WiFi adapter couldn't be found
+                textBox.Text = "WiFi adapter not found.";
             }
         }
     }
