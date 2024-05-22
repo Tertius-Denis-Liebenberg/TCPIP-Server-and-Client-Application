@@ -1,9 +1,9 @@
 ﻿using SimpleTCP;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +21,10 @@ namespace TCP_IP_Server
 
         SimpleTcpServer server;
 
-        private void ServerForm_Load(object sender, EventArgs e)
+        private  void ServerForm_Load(object sender, EventArgs e)
         {
             server = new SimpleTcpServer();
-            server.Delimiter = 0x13; //Enter
+            server.Delimiter = 0x13; // Enter
             server.StringEncoder = Encoding.UTF8;
             server.DataReceived += Server_DataRecieved;
         }
@@ -38,17 +38,32 @@ namespace TCP_IP_Server
             });
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private  void btnStart_Click(object sender, EventArgs e)
         {
-            txtStatus.Text += "Server starting...";
-            // Correctly parse the IP address string
-            IPAddress ip;
-            if (!IPAddress.TryParse(txtHost.Text, out ip))
+            txtStatus.Text += "Starting server...";
+            try
             {
-                txtStatus.Text += "Invalid IP address.";
-                return; // Exit the method if the IP address is invalid
+                IPAddress ip;
+                if (!IPAddress.TryParse(txtHost.Text, out ip))
+                {
+                    txtStatus.Text += "Invalid IP address.";
+                    return;
+                }
+
+                int port;
+                if (!int.TryParse(txtPort.Text, out port) || port < 1 || port > 65535)
+                {
+                    txtStatus.Text += "Invalid port number.";
+                    return;
+                }
+
+                server.Start(ip, port);
+                txtStatus.Text += "Server started successfully.";
             }
-            server.Start(ip, Convert.ToInt32(txtPort.Text));
+            catch (Exception ex)
+            {
+                txtStatus.Text += $"Failed to start server: {ex.Message}";
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -56,6 +71,11 @@ namespace TCP_IP_Server
             if (server.IsStarted)
             {
                 server.Stop();
+                txtStatus.Text += "Server stopped.";
+            }
+            else
+            {
+                txtStatus.Text += "Server is not running.";
             }
         }
     }
