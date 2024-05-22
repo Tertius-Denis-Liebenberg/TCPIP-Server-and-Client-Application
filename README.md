@@ -1,45 +1,45 @@
-# TCP/IP Listener Example
+# TCP/IP Communication Client and Server
 
-A simple demonstration of a TCP/IP listener implemented in C#. This project includes both a server application that listens for incoming connections and processes data from clients, and a client application that connects to the server and sends data.
+This repository contains two Windows Forms applications designed for simple TCP/IP communication between a client and a server. These applications utilize the `SimpleTCP` library to facilitate easy setup and management of TCP connections, making it ideal for educational purposes, testing network protocols, or developing lightweight networking applications.
 
-## Features
+## Overview
 
-- Server listens on a specified port for incoming connections.
-- Server receives and processes data from connected clients.
-- Client connects to the server, sends a predefined message, and closes the connection.
+### Client Application (`TCP_IP_Client`)
+The client application allows users to establish a TCP connection to a specified host and port, send messages to the server, and receive responses. It includes functionalities such as:
+- Connecting to a server using a specified IP address and port.
+- Sending messages to the server and waiting for a reply.
+- Receiving messages from the server and displaying them in real-time.
+- Disconnecting from the server.
 
-## Prerequisites
+### Server Application (`TCP_IP_Server`)
+The server application listens for incoming TCP connections, receives messages from clients, and sends back responses. It supports:
+- Listening on a specified IP address and port.
+- Automatically replying to every received message with a confirmation.
+- Stopping the server gracefully.
 
+## Getting Started
+
+### Prerequisites
 -.NET Framework 4.7.2 or later
-- Visual Studio 2019 or later recommended for development
+- Visual Studio 2019 or newer
 
-## Installation
+### Installation
+1. Clone the repository to your local machine.
+2. Open the solution in Visual Studio.
+3. Build the solution to ensure there are no compilation errors.
+4. Run either the `TCP_IP_Client` or `TCP_IP_Server` project depending on your role.
 
-1. Clone the repository:
-```bash
-    git clone https://github.com/Tertius-Denis-Liebenberg/TCPIP-Server-and-Client-Application.git
-```
+### Usage
+- **For the Client:**
+  - Enter the server's IP address and port in the corresponding fields.
+  - Click the "Connect" button to initiate the connection.
+  - Type a message in the text box and click "Send" to transmit it to the server.
+  - View the conversation history in the status area.
 
-2. Open the solution in Visual Studio:
-   - Navigate to the cloned directory.
-   - Open the `.sln` file in Visual Studio.
-
-3. Build the solution:
-   - Select `Build > Build Solution` from the menu.
-
-## Usage
-
-### Running the Server
-
-1. Set breakpoints as needed for debugging.
-2. Press F5 to start debugging and run the server application.
-
-### Running the Client
-
-1. Open a new instance of Visual Studio or another IDE.
-2. Open the client project.
-3. Set breakpoints as needed for debugging.
-4. Press F5 to start debugging and run the client application.
+- **For the Server:**
+  - Specify the IP address and port to listen on.
+  - Click "Start" to begin listening for incoming connections.
+  - Messages sent by the client will appear in the status area, along with automatic replies.
 
 ## Author
 
