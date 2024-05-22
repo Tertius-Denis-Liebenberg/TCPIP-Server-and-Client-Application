@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP IP Application", "TCP IP Application\TCP IP Application.csproj", "{DDDBAA80-37AA-4F4C-AAD1-E8B394EF4655}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP IP Client", "TCP IP Client\TCP IP Client.csproj", "{F854557E-2DF9-47A6-8FD8-69E08354E288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP IP Server", "TCP IP Server\TCP IP Server.csproj", "{54210689-3A43-4140-BFB3-580F97D0168D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DDDBAA80-37AA-4F4C-AAD1-E8B394EF4655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDDBAA80-37AA-4F4C-AAD1-E8B394EF4655}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDDBAA80-37AA-4F4C-AAD1-E8B394EF4655}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDDBAA80-37AA-4F4C-AAD1-E8B394EF4655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F854557E-2DF9-47A6-8FD8-69E08354E288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F854557E-2DF9-47A6-8FD8-69E08354E288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F854557E-2DF9-47A6-8FD8-69E08354E288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F854557E-2DF9-47A6-8FD8-69E08354E288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54210689-3A43-4140-BFB3-580F97D0168D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54210689-3A43-4140-BFB3-580F97D0168D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54210689-3A43-4140-BFB3-580F97D0168D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54210689-3A43-4140-BFB3-580F97D0168D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
