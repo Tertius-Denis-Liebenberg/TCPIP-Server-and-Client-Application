@@ -42,29 +42,29 @@ namespace TCP_IP_Server
         {
             btnStart.Enabled = false;
 
-            txtStatus.Text += "Starting server...";
+            txtStatus.Text += "Starting server...\n";
             try
             {
                 IPAddress ip;
                 if (!IPAddress.TryParse(txtHost.Text, out ip))
                 {
-                    txtStatus.Text += "Invalid IP address.";
+                    txtStatus.Text += "Invalid IP address.\n";
                     return;
                 }
 
                 int port;
                 if (!int.TryParse(txtPort.Text, out port) || port < 1 || port > 65535)
                 {
-                    txtStatus.Text += "Invalid port number.";
+                    txtStatus.Text += "Invalid port number.\n";
                     return;
                 }
 
                 server.Start(ip, port);
-                txtStatus.Text += "Server started successfully.";
+                txtStatus.Text += "Server started successfully.\n\n";
             }
             catch (Exception ex)
             {
-                txtStatus.Text += $"Failed to start server: {ex.Message}";
+                txtStatus.Text += $"Failed to start server: {ex.Message}\n\n";
                 btnStart.Enabled = true;
             }
         }
@@ -74,12 +74,12 @@ namespace TCP_IP_Server
             if (server.IsStarted)
             {
                 server.Stop();
-                txtStatus.Text += "Server stopped.";
+                txtStatus.Text += "\nServer stopped.";
                 btnStart.Enabled = true;
             }
             else
             {
-                txtStatus.Text += "Server is not running.";
+                txtStatus.Text += "Server is not running.\n";
             }
         }
     }

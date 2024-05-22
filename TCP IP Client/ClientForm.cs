@@ -21,12 +21,12 @@ namespace TCP_IP_Client
         private void btnConnect_Click(object sender, EventArgs e)
         {
             btnConnect.Enabled = false;
-            txtStatus.Text += "Attempting to connect...\n";
+            txtStatus.Text += "Attempting to connect...\n\n";
 
             try
             {
                 client.Connect(txtHost.Text, Convert.ToInt32(txtPort.Text));
-                txtStatus.Text += "Connected!\n";
+                txtStatus.Text += "Connected!\n\n";
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace TCP_IP_Client
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
             client.Disconnect();
-            txtStatus.Text += "Disconnected.\n";
+            txtStatus.Text += "Disconnected.\n\n";
             btnConnect.Enabled = true;
         }
     }
