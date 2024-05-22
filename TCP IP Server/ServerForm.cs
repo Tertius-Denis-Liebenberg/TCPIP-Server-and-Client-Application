@@ -40,7 +40,14 @@ namespace TCP_IP_Server
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            IPAddress ip = new IPAddress(long.Parse(txtHost.Text));
+            txtStatus.Text += "Server starting...";
+            // Correctly parse the IP address string
+            IPAddress ip;
+            if (!IPAddress.TryParse(txtHost.Text, out ip))
+            {
+                txtStatus.Text += "Invalid IP address.";
+                return; // Exit the method if the IP address is invalid
+            }
             server.Start(ip, Convert.ToInt32(txtPort.Text));
         }
 
