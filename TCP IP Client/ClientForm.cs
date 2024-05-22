@@ -1,12 +1,10 @@
 ﻿using SimpleTCP;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TCP_IP_Client
@@ -23,6 +21,21 @@ namespace TCP_IP_Client
         private void btnConnect_Click(object sender, EventArgs e)
         {
             btnConnect.Enabled = false;
+            txtStatus.Text += "Attempting to connect...\n";
+
+            try
+            {
+                client.Connect(txtHost.Text, Convert.ToInt32(txtPort.Text));
+                txtStatus.Text += "Connected!\n";
+            }
+            catch (Exception ex)
+            {
+                txtStatus.Text += $"Connection failed: {ex.Message}\n";
+            }
+            finally
+            {
+                btnConnect.Enabled = true;
+            }
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
@@ -36,13 +49,28 @@ namespace TCP_IP_Client
         {
             txtStatus.Invoke((MethodInvoker)delegate ()
             {
-                txtStatus.Text += e.MessageString;
+                txtStatus.AppendText(e.MessageString + "\n");
             });
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            client.WriteLineAndGetReply(txtMessage.Text, TimeSpan.FromSeconds(3));
+            if (string.IsNullOrWhiteSpace(txtMessage.Text))
+            {
+                txtStatus.Text += "Please enter a message.\n";
+                return;
+            }
+
+            var reply = client.WriteLineAndGetReply(txtMessage.Text, TimeSpan.FromSeconds(3));
+            txtStatus.Text += $"Sent: {txtMessage.Text}\n";
+            txtStatus.Text += $"Received: {reply}\n";
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            client.Disconnect();
+            txtStatus.Text += "Disconnected.\n";
+            btnConnect.Enabled = true;
         }
     }
 }
