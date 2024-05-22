@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using System.Net.NetworkInformation;
 
 namespace TCP_IP_Server
 {
@@ -25,6 +26,8 @@ namespace TCP_IP_Server
 
         private void ServerForm_Load(object sender, EventArgs e)
         {
+            GetWiFiIPAddress(txtHost);
+
             // Initialize the SimpleTcpServer with UTF8 encoding and set the delimiter to Enter key
             server = new SimpleTcpServer();
             server.Delimiter = 0x13; // ASCII value for Enter key
@@ -101,6 +104,60 @@ namespace TCP_IP_Server
             {
                 // If the server is not running, display a message
                 txtStatus.Text += "Server is not running.\n";
+            }
+        }
+
+        private void GetLocalIPAddresses(TextBox textBox)
+        {
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                {
+                    foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
+                    {
+                        if (!ip.Address.IsIPv6LinkLocal && !ip.Address.IsIPv6Multicast)
+                        {
+                            textBox.Text = ip.Address.ToString(); // Update the TextBox with the IP address
+                            break; // Assuming you only want the first non-link-local/non-multicast IP
+                        }
+                    }
+                }
+            }
+        }
+        private void GetWiFiIPAddress(TextBox textBox)
+        {
+            // Define the name of the WiFi adapter
+            string wifiAdapterName = "Wi-Fi";
+
+            // Find the network interface by its name
+            NetworkInterface wifiNic = null;
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.Name.Equals(wifiAdapterName, StringComparison.OrdinalIgnoreCase))
+                {
+                    wifiNic = nic;
+                    break;
+                }
+            }
+
+            if (wifiNic != null)
+            {
+                // Get the IP properties of the WiFi adapter
+                IPInterfaceProperties wifiIpProps = wifiNic.GetIPProperties();
+
+                // Iterate through the unicast addresses to find the IPv4 address
+                foreach (UnicastIPAddressInformation ip in wifiIpProps.UnicastAddresses)
+                {
+                    if (!ip.Address.IsIPv6LinkLocal && !ip.Address.IsIPv6Multicast)
+                    {
+                        textBox.Text = ip.Address.ToString(); // Update the TextBox with the IP address
+                        break; // Assuming you only want the first non-link-local/non-multicast IP
+                    }
+                }
+            }
+            else
+            {
+                textBox.Text = "WiFi adapter not found."; // Inform the user if the WiFi adapter couldn't be found
             }
         }
     }
