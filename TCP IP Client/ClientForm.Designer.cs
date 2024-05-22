@@ -37,6 +37,7 @@
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtMessage = new System.Windows.Forms.TextBox();
+            this.btnDisconnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -88,12 +89,12 @@
             this.txtStatus.Location = new System.Drawing.Point(15, 160);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(339, 166);
+            this.txtStatus.Size = new System.Drawing.Size(420, 166);
             this.txtStatus.TabIndex = 11;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(279, 131);
+            this.btnSend.Location = new System.Drawing.Point(360, 131);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 12;
@@ -106,14 +107,24 @@
             this.txtMessage.Location = new System.Drawing.Point(15, 45);
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(339, 80);
+            this.txtMessage.Size = new System.Drawing.Size(420, 80);
             this.txtMessage.TabIndex = 13;
+            // 
+            // btnDisconnect
+            // 
+            this.btnDisconnect.Location = new System.Drawing.Point(360, 16);
+            this.btnDisconnect.Name = "btnDisconnect";
+            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
+            this.btnDisconnect.TabIndex = 14;
+            this.btnDisconnect.Text = "Disonnect";
+            this.btnDisconnect.UseVisualStyleBackColor = true;
             // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 337);
+            this.ClientSize = new System.Drawing.Size(454, 337);
+            this.Controls.Add(this.btnDisconnect);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtStatus);
@@ -143,6 +154,7 @@
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TextBox txtMessage;
+        private System.Windows.Forms.Button btnDisconnect;
     }
 }
 
