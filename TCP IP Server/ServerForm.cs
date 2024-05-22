@@ -33,7 +33,7 @@ namespace TCP_IP_Server
         {
             txtStatus.Invoke((MethodInvoker)delegate ()
             {
-                txtStatus.Text += e.MessageString;
+                txtStatus.Text += "\n" + e.MessageString;
                 e.ReplyLine(string.Format("Data Recieved: {0}", e.MessageString));
             });
         }
