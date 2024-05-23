@@ -62,7 +62,11 @@ namespace TCP_IP_Client
             // Safely update the UI thread with the received message
             txtStatus.Invoke((MethodInvoker)delegate ()
             {
-                txtStatus.AppendText(e.MessageString + ""); // Append the received message to the status text
+
+                // Replace '\u0013' with an empty string to remove it
+                string cleanedMessage = e.MessageString.Replace("\u0013", "");
+
+                txtStatus.AppendText(cleanedMessage); // Append the received message to the status text
             });
         }
 

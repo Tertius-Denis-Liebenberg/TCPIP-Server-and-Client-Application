@@ -45,8 +45,8 @@ namespace TCP_IP_Server
                 // Replace '\u0013' with an empty string to remove it
                 string cleanedMessage = e.MessageString.Replace("\u0013", "");
 
-                // Assign the cleaned message to txtBarcode.Text
-                txtStatus.Text = cleanedMessage;
+                // Assign the cleaned message to txtStatus.Text
+                txtStatus.AppendText(cleanedMessage);
 
                 // Optionally, reply to the client
                 e.ReplyLine(string.Format("Data Received: {0}", e.MessageString));
