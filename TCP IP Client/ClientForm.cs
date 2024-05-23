@@ -26,19 +26,19 @@ namespace TCP_IP_Client
             btnConnect.Enabled = false;
 
             // Indicate that the connection attempt has started
-            txtStatus.Text += "Attempting to connect...\n\n";
+            txtStatus.Text += "Attempting to connect...";
 
             try
             {
                 // Attempt to connect to the server using the specified IP address and port
                 client.Connect(txtHost.Text, Convert.ToInt32(txtPort.Text));
                 // Indicate that the connection was successful
-                txtStatus.Text += "Connected!\n\n";
+                txtStatus.Text += "Connected!";
             }
             catch (Exception ex)
             {
                 // Handle any exceptions during the connection attempt
-                txtStatus.Text += $"Connection failed: {ex.Message}\n";
+                txtStatus.Text += $"Connection failed: {ex.Message}";
             }
             finally
             {
@@ -62,7 +62,7 @@ namespace TCP_IP_Client
             // Safely update the UI thread with the received message
             txtStatus.Invoke((MethodInvoker)delegate ()
             {
-                txtStatus.AppendText(e.MessageString + "\n"); // Append the received message to the status text
+                txtStatus.AppendText(e.MessageString + ""); // Append the received message to the status text
             });
         }
 
@@ -72,7 +72,7 @@ namespace TCP_IP_Client
             if (string.IsNullOrWhiteSpace(txtMessage.Text))
             {
                 // Inform the user to enter a message
-                txtStatus.Text += "Please enter a message.\n";
+                txtStatus.Text += "Please enter a message.";
                 return;
             }
 
@@ -80,8 +80,8 @@ namespace TCP_IP_Client
             var reply = client.WriteLineAndGetReply(txtMessage.Text, TimeSpan.FromSeconds(3));
 
             // Update the status text with the sent message and the received reply
-            txtStatus.Text += $"Sent: {txtMessage.Text}\n";
-            txtStatus.Text += $"Received: {reply}\n";
+            txtStatus.Text += $"Sent: {txtMessage.Text}";
+            txtStatus.Text += $"Received: {reply}";
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace TCP_IP_Client
             client.Disconnect();
 
             // Indicate that the disconnection was successful
-            txtStatus.Text += "Disconnected.\n\n";
+            txtStatus.Text += "Disconnected.";
 
             // Re-enable the Connect button
             btnConnect.Enabled = true;

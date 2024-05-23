@@ -42,8 +42,14 @@ namespace TCP_IP_Server
             // Safely update the UI thread with the received message and send a reply
             txtStatus.Invoke((MethodInvoker)delegate ()
             {
-                txtStatus.Text += "\n" + e.MessageString; // Append the received message to the status text
-                e.ReplyLine(string.Format("Data Received: {0}", e.MessageString)); // Send a reply to the client
+                // Replace '\u0013' with an empty string to remove it
+                string cleanedMessage = e.MessageString.Replace("\u0013", "");
+
+                // Assign the cleaned message to txtBarcode.Text
+                txtStatus.Text = cleanedMessage;
+
+                // Optionally, reply to the client
+                e.ReplyLine(string.Format("Data Received: {0}", e.MessageString));
             });
         }
 
@@ -53,7 +59,7 @@ namespace TCP_IP_Server
             btnStart.Enabled = false;
 
             // Update the status text to indicate the server is starting
-            txtStatus.Text += "Starting server...\n";
+            txtStatus.Text += "Starting server...";
 
             try
             {
@@ -62,7 +68,7 @@ namespace TCP_IP_Server
                 if (!IPAddress.TryParse(txtHost.Text, out ip))
                 {
                     // If the IP address is invalid, display an error message and exit the method
-                    txtStatus.Text += "Invalid IP address.\n";
+                    txtStatus.Text += "Invalid IP address.";
                     return;
                 }
 
@@ -71,19 +77,19 @@ namespace TCP_IP_Server
                 if (!int.TryParse(txtPort.Text, out port) || port < 1 || port > 65535)
                 {
                     // If the port number is invalid, display an error message and exit the method
-                    txtStatus.Text += "Invalid port number.\n";
+                    txtStatus.Text += "Invalid port number.";
                     return;
                 }
 
                 // Start the server with the parsed IP address and port
                 server.Start(ip, port);
                 // Update the status text to indicate the server has started successfully
-                txtStatus.Text += "Server started successfully.\n\n";
+                txtStatus.Text += "Server started successfully.";
             }
             catch (Exception ex)
             {
                 // If an exception occurs, display the error message and re-enable the Start button
-                txtStatus.Text += $"Failed to start server: {ex.Message}\n\n";
+                txtStatus.Text += $"Failed to start server: {ex.Message}";
                 btnStart.Enabled = true;
             }
         }
@@ -95,7 +101,7 @@ namespace TCP_IP_Server
             {
                 // Stop the server and update the status text
                 server.Stop();
-                txtStatus.Text += "\nServer stopped.";
+                txtStatus.Text += "Server stopped.";
 
                 // Re-enable the Start button
                 btnStart.Enabled = true;
@@ -103,7 +109,7 @@ namespace TCP_IP_Server
             else
             {
                 // If the server is not running, display a message
-                txtStatus.Text += "Server is not running.\n";
+                txtStatus.Text += "Server is not running.";
             }
         }
         
