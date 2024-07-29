@@ -116,7 +116,7 @@
             this.MaximizeBox = false;
             this.Name = "ServerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Server";
+            this.Text = "TCP IP Server";
             this.Load += new System.EventHandler(this.ServerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
