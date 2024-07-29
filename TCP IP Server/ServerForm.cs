@@ -43,10 +43,10 @@ namespace TCP_IP_Server
             txtStatus.Invoke((MethodInvoker)delegate ()
             {
                 // Replace '\u0013' with an empty string to remove it
-                string cleanedMessage = e.MessageString.Replace("\u0013", "");
+                string cleanedMessage = e.MessageString.Replace("\u0013", "\r\n");
 
                 // Assign the cleaned message to txtStatus.Text
-                txtStatus.AppendText(cleanedMessage);
+                txtStatus.AppendText("\r\nData Received: " + cleanedMessage + "\r\n");
 
                 // Optionally, reply to the client
                 e.ReplyLine(string.Format("Data Received: {0}", e.MessageString));
@@ -59,7 +59,7 @@ namespace TCP_IP_Server
             btnStart.Enabled = false;
 
             // Update the status text to indicate the server is starting
-            txtStatus.Text += "Starting server...";
+            txtStatus.Text += "Starting server...\r\n";
 
             try
             {
@@ -68,7 +68,7 @@ namespace TCP_IP_Server
                 if (!IPAddress.TryParse(txtHost.Text, out ip))
                 {
                     // If the IP address is invalid, display an error message and exit the method
-                    txtStatus.Text += "Invalid IP address.";
+                    txtStatus.Text += "Invalid IP address.\r\n";
                     return;
                 }
 
@@ -77,19 +77,19 @@ namespace TCP_IP_Server
                 if (!int.TryParse(txtPort.Text, out port) || port < 1 || port > 65535)
                 {
                     // If the port number is invalid, display an error message and exit the method
-                    txtStatus.Text += "Invalid port number.";
+                    txtStatus.Text += "Invalid port number.\r\n";
                     return;
                 }
 
                 // Start the server with the parsed IP address and port
                 server.Start(ip, port);
                 // Update the status text to indicate the server has started successfully
-                txtStatus.Text += "Server started successfully.";
+                txtStatus.Text += "Server started successfully.\r\n";
             }
             catch (Exception ex)
             {
                 // If an exception occurs, display the error message and re-enable the Start button
-                txtStatus.Text += $"Failed to start server: {ex.Message}";
+                txtStatus.Text += $"Failed to start server: {ex.Message} \r\n";
                 btnStart.Enabled = true;
             }
         }
@@ -101,7 +101,7 @@ namespace TCP_IP_Server
             {
                 // Stop the server and update the status text
                 server.Stop();
-                txtStatus.Text += "Server stopped.";
+                txtStatus.Text += "Server stopped.\r\n";
 
                 // Re-enable the Start button
                 btnStart.Enabled = true;
@@ -109,7 +109,7 @@ namespace TCP_IP_Server
             else
             {
                 // If the server is not running, display a message
-                txtStatus.Text += "Server is not running.";
+                txtStatus.Text += "Server is not running.\r\n";
             }
         }
         
@@ -180,7 +180,7 @@ namespace TCP_IP_Server
             else
             {
                 // Inform the user if the WiFi adapter couldn't be found
-                textBox.Text = "WiFi adapter not found.";
+                textBox.Text = "WiFi adapter not found.\r\n";
             }
         }
     }
